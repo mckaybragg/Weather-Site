@@ -22,7 +22,7 @@
 
 
 <body>
-
+    <!--Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Weather Vane</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -43,12 +43,35 @@
             </ul>
             
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Address/City/Zip" aria-label="Search">
-                <button id="search" class="btn btn-info" type="submit" style="border-color: blanchedalmond">Get Weather</button>
+                <input id="searchBar" class="form-control mr-sm-2" type="search" placeholder="Address/City/Zip" aria-label="Search">
+                <button id="submit" class="btn btn-info" type="button" style="border-color:blanchedalmond">Get Weather </button>
             </form>
         </div>
     </nav>
+    <!--End Nav Bar-->
 
+    <!--Weather Card-->
+    <div class="container">
+        <div class="row">
+            <div id="template" class="col-xs-12 col-lg-4">
+                <div class="weatherCard">
+                    <button type="button" id="remove">X</button>
+                    <h1>Louisville</h1>
+                    <h1>50&#8457</h1>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Location: Louisville</li>
+                        <li class="list-group-item">Current Conditions: Overcast</li>
+                        <li class="list-group-item">High Temp: 75&#8457</li>
+                        <li class="list-group-item">Low Temp: 30&#8457</li>
+                        <li class="list-group-item">Chance of Precipitation: 40%</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
     <!--JQuery, Popper.js, and Bootstrap JS-->
     <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
         crossorigin="anonymous"></script>
