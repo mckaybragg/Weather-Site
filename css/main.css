@@ -8,11 +8,13 @@ body {
     box-shadow: 7px 7px 7px black;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+
 }
 
 h1 {
     text-align: center;
     margin: 12px 0;
+    color: cornflowerblue;
 }
 
 #remove {

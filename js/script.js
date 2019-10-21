@@ -33,6 +33,7 @@ function getWeatherInfo(latitude, longitude, city, state) {
         //We need to get the temperature from the Dark Sky data
         let temperature = data.currently.temperature;
         let conditions = data.currently.summary;
+        let weatherIcon = data.currently.icon;
 
         let currentDayInfo = data.daily.data[0];
         let highTemp = currentDayInfo.temperatureHigh;
@@ -54,6 +55,33 @@ function getWeatherInfo(latitude, longitude, city, state) {
         templateHTML = templateHTML.replace("@@lowTemp@@", Math.round (lowTemp));
 
         templateHTML = templateHTML.replace("@@precipChance@@", Math.round (precipChance));
+
+        templateHTML = templateHTML.replace("@@imageURL@@", getBackgroundPath(weatherIcon));
+
+        for (var i = 0; i < 5; i++) {
+            //Set the date for each day
+            if (i > 0) {
+                //Get the current date, and add i days to it
+                let date = new Date();
+                date.setDate(date.getDate() + i);
+                
+                //Get the month (0-11) from the date and add 1 to it for accuracy
+                let month = date.getMonth() + 1;
+                //Get the day from the date
+                let day = date.getDate();
+
+                //Replace the placeholder text in the template for date i
+                templateHTML = templateHTML.replace("@@date" + i + "@@", month + "/" + day);
+            }
+
+            //Get the weather data for the day based on i
+            let currentDayWeatherData = data.daily.data[i];
+
+            templateHTML = templateHTML.replace("@@max" + i + "@@", Math.round(currentDayWeatherData.temperatureMax));
+            templateHTML = templateHTML.replace("@@low" + i + "@@", Math.round(currentDayWeatherData.temperatureMin));
+            templateHTML = templateHTML.replace("@@precip" + i + "@@", Math.round(currentDayWeatherData.precipProbability * 100));
+        }
+
 
         //Add the configured template HTML to our row in the card container
         $(".row").append(templateHTML);
@@ -91,4 +119,32 @@ function geocode(location) {
     .always(function() {
         console.log("Geocoding call finished");
     })
+}
+
+function getBackgroundPath(iconString) {
+    //Create a switch statement that switches based on the value of iconString. For each case, it should return the path to the appropriate image for that iconString value. By default, it should return the path to the clear-day image. 
+    switch (iconString) {
+        case "clear-day":
+            return "img/clear-day.jpg";
+        case "clear-night":
+            return "img/clear-night.jpg";
+        case "rain":
+            return "img/rain.jpg";
+        case "snow":
+            return "img/snow.jpg";
+        case "sleet":
+            return "img/sleet.jpg";
+        case "fog":
+            return "img/fog.jpg";
+        case "wind":
+            return "img/wind.jpg";
+        case "cloudy":
+            return "img/cloudy.jpg";
+        case "partly-cloudy-day":
+            return "img/partly-cloudy-day.jpg";
+        case "partly-cloudly-night":
+            return "img/partly-cloudly-night.jpg";
+        default: 
+            return "img/clear-day.jpg";
+    }
 }
